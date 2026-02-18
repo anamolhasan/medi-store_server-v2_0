@@ -9,6 +9,7 @@ import { categoryRoutes } from './modules/category/category.route';
 import { userRoutes } from './modules/user/user.route';
 import { orderRoutes } from './modules/order/order.routes';
 import { reviewRoutes } from './modules/review/review.route';
+import { requestLogger } from './middleware/requestLogger';
 
 const app = express()
 
@@ -24,6 +25,9 @@ app.use(cors({
 }))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
+
+// Logger
+app.use(requestLogger)
 
 
 // Routes

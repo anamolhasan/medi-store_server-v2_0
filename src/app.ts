@@ -31,23 +31,22 @@ app.use(requestLogger)
 
 
 // Routes
-app.all("/api/auth/*split", toNodeHandler(auth));
+app.all("/api/auth/*split", toNodeHandler(auth));  // batter auth route
 
 app.use('/api/v1/category', categoryRoutes)
 app.use('/api/v1/medicine', medicineRoutes)
-app.use('/api/v1/user', userRoutes)
+app.use('/api/v1/users', userRoutes)
 app.use('/api/v1/order', orderRoutes)
 app.use('/api/v1/review', reviewRoutes)
 
 
-
+// ROOT DIRECTORY
 app.get('/', (req, res) => {
     res.send("<h1>Medi Store server...</h1>")
 })
 
 
-// Error Handler
-app.use(globalErrorHandler)
+// API Route not found
 app.use((req:Request, res:Response) => {
     res.status(404).json({
         path:req.url,
@@ -55,6 +54,9 @@ app.use((req:Request, res:Response) => {
         message:'Not Found!'
     })
 })
+
+// Error Handler
+app.use(globalErrorHandler)
 
 
 export default app

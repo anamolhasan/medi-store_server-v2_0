@@ -2,22 +2,18 @@
 {
   "name": "medi_store-server",
   "version": "1.0.0",
-  "description": "Medi - Modern Pharmaceutical E-Commerce Platform (Backend API)",
-  "main": "index.js",
+  "description": "Medi - store Pharmaceutical E-Commerce Platform (Backend API)",
+  "main": "server.js",
   "type": "module",
   "engines": {
     "node": "20.x"
   },
   "scripts": {
-    "dev": "tsx watch src/index.ts",
-    "seed:admin":"tsx src/script.seedAdmin.ts",
-    "build": "prisma generate && tsc",
-    "start": "node dist/index.js",
-    "vercel-build": "prisma generate",
-    "postinstall": "prisma generate",
-    "db:migrate": "prisma migrate dev",
-    "db:push": "prisma db push",
-    "db:studio": "prisma studio"
+    "dev": "tsx watch src/server.ts",
+    "seed:admin": "tsx src/script/seedAdmin.ts",
+     "build": "prisma generate && tsc && tsc-alias -p tsconfig.json --resolve-full-paths",
+    "start": "node dist/src/server.js",
+    "deploy": "prisma migrate deploy && npm run build && node dist/src/scripts/seedAdmin.js && npm run start"
   },
   "keywords": [
     "express",
@@ -30,11 +26,11 @@
   "author": {
     "name": "Anamol Hasan",
     "email": "anamolhasan.job@gmail.com",
-    "url": "https://abnahid.com"
+    "url": "https://anamolhasan.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/abnahid/Zenvira.git",
+    "url": "https://github.com/anamolhasan",
     "directory": "server"
   },
   "license": "MIT",

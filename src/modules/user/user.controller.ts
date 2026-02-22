@@ -78,11 +78,16 @@ const updateUser = async (req:Request, res:Response, next:NextFunction) => {
     const {id} = req.params;
     const user = req.user;
 
-    await userService.updateUser(
+    const updatedUser  = await userService.updateUser(
         user as User, // actor
         id as string, //target user id
         req.body // update payload
     )
+    res.status(200).json({
+        success:true,
+        message:'User update successfully!',
+        data:updatedUser ,
+    })
    } catch (error) {
     next(error)
    }

@@ -315,6 +315,15 @@ var auth = betterAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET
     }
   },
+  callbacks: {
+    async redirect({ url }) {
+      const frontendUrl = process.env.APP_URL;
+      if (url?.startsWith(frontendUrl)) {
+        return url;
+      }
+      return frontendUrl;
+    }
+  },
   session: {
     cookieCache: {
       enabled: true,
@@ -1106,7 +1115,7 @@ var updateUser2 = async (req, res, next) => {
   try {
     const { id } = req.params;
     const user = req.user;
-    await userService.updateUser(
+    const updatedUser = await userService.updateUser(
       user,
       // actor
       id,
@@ -1114,6 +1123,11 @@ var updateUser2 = async (req, res, next) => {
       req.body
       // update payload
     );
+    res.status(200).json({
+      success: true,
+      message: "User update successfully!",
+      data: updatedUser
+    });
   } catch (error) {
     next(error);
   }
@@ -1315,6 +1329,11 @@ var updateOrderById2 = async (req, res, next) => {
       id,
       orderData
     );
+    res.status(200).json({
+      success: true,
+      message: "Order update successfully",
+      data: result
+    });
   } catch (error) {
     next(error);
   }

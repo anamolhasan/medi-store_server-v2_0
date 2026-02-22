@@ -67,6 +67,11 @@ const updateOrderById = async (req:Request, res:Response, next:NextFunction) => 
     const result = await orderService.updateOrderById(id as string,
         orderData,
     )
+   res.status(200).json({
+        success:true,
+        message:'Order update successfully',
+        data:result,
+    })
   } catch (error:any) {
     next(error)
   }
